@@ -15,8 +15,8 @@ class Game {
 			while (!solution) {
 				// unsolvable if all strategies false
 				// have to do checkLastValue 
-				for (int i = 0; 
-
+				for (int i = 0; i <
+						
 			}
 			board.update()
 		}
@@ -40,7 +40,7 @@ class Game {
 
 
 
-
+// Current values in board
 class Board {
 	int grid[] = {9, 9};
 	Box choices[] = {9, 9} // possible nums for each box
@@ -67,7 +67,7 @@ class Board {
 };
 
 
-
+// Possible values for a box in grid
 class Box {
 	bool nums[] = {9};
 

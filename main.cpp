@@ -118,8 +118,14 @@ int main(int argc, char* argv[]) {
 	g.solve();
 
 	// END GAME
-
-
+	if g.board.solved {
+		cout << "Puzzle solved!\n";
+		g.board.print();
+	}
+	else {
+		cout << "Puzzle is unsolvabale with current algorithms.\n";
+	}
+	
 
 	myfile.close();
 	return 0;
