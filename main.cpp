@@ -61,7 +61,7 @@ int main(int argc, char* argv[]) {
 		int inputBoard[] = {9, 9}
 		int rowCounter = 0;
 		while (getline(myfile, s)) {
-			char delim = ',' //find way to determine delim
+			char delim = ',' 
 			int row = stringSplit(s, delim);
 			
 			for (int i = 0; i < 9; i++ ) {
@@ -71,8 +71,9 @@ int main(int argc, char* argv[]) {
 			rowCounter++;
 		}
 
-		// deal with invalid integers
-		// deal with empty or full boards
+		// Stop if board contains invalid integer
+
+		// Stop if board is completely empty or full
 		
 		g.setup(inputBoard);
 	}
