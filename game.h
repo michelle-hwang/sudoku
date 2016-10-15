@@ -10,7 +10,7 @@ class Game {
 	bool endgame = false;
 	
 	// fills in entire board
-	void solve(Board b) {
+	void solve() {
 		// LOTS OF WORK HERE
 	}
 	
@@ -28,6 +28,9 @@ class Game {
 	}
 };
 
+
+
+
 class Board {
 	int grid[] = {9, 9};
 	bool solved = false;
@@ -44,6 +47,9 @@ class Board {
 	void update(int grid[], int x, int row, int col) {
 	}	
 };
+
+
+
 
 
 #endif /* GAME_H_ */

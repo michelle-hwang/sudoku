@@ -14,6 +14,22 @@ using namespace std;
 // FUNCTIONS
 // ============================================================================
 
+int stringSplit (const string &s, char delim);
+int stringSplit (const string &s, char delim) {
+	int row[];
+	stringstream ss;
+	ss.str(s);
+	string item;
+	
+
+	// find way to deal with invalid elements
+
+	for (int i = 0; i < 9; i++) {
+		getline(ss, item, delim)
+		row[i] = stoi(item);
+	}
+
+	return row;
 
 // ============================================================================
 // MAIN
@@ -22,19 +38,55 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
 
-	// Takes in .txt file if available
-	// If nonexistent, initialize board with setupRand()
 	Game g;
-
-	// Convert input file to int array
-	// , or \w delimiter
-	// blank entries = NA or 0
 	
-	g.setup()
+	// INITIALIZE THE BOARD
+	// If .txt file containing board is not provided:
+	if (argv[1] == nullptr) {
+		g.setupRand();
+	}
+	// If .txt file containing board is provided:
+	else {
+		ifstream myfile;
+		myfile.exceptions (ifstream::failbit | ifstream::badbit);
 
-	// Solve game
+		try {
+			myfile.open(argv[1]);
+			while (!file.eof()) file.get();
+		}
+		catch (const ifstream::failure&e) {
+			cout << "EXCEPTION: Opening/reading file.";
+		}
 
-	// End game
+		int inputBoard[] = {9, 9}
+		int rowCounter = 0;
+		while (getline(myfile, s)) {
+			char delim = ',' //find way to determine delim
+			int row = stringSplit(s, delim);
+			
+			for (int i = 0; i < 9; i++ ) {
+				inputBoard[rowCounter][i] = row[i];
+			}
+			
+			rowCounter++;
+		}
+
+		// deal with invalid integers
+		// deal with empty or full boards
+		
+		g.setup(inputBoard);
+	}
+	
+
+	// SOLVE GAME
+	g.solve();
+
+	// END GAME
+
+
+
+	myfile.close();
+	return 0;
 
 }
 
