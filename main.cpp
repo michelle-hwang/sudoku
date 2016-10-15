@@ -15,7 +15,7 @@ using namespace std;
 // FUNCTIONS
 // ============================================================================
 
-
+bool boardFull (const int b[]);
 bool boardFull (const int b[]) {
 	for (int i = 0; i < 9; i++ ) {
 		for (int j = 0; j < 9; j++) {
@@ -74,8 +74,8 @@ int main(int argc, char* argv[]) {
 		g.setupRand();
 	}
 	// If .txt file containing board is provided:
-	// Values separated by comma
-	// Empty element = 0
+		// Values separated by comma
+		// Empty element = 0
 	else {
 		ifstream myfile;
 		myfile.exceptions (ifstream::failbit | ifstream::badbit);

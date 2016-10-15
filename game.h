@@ -33,20 +33,17 @@ class Game {
 	}
 	
 	// initializes board with random templates
-	// low priority
 	void setupRand(int input[]) {
 	}
 };
 
 
 
-// Current values in board
 class Board {
 	int grid[] = {9, 9};
 	Box choices[] = {9, 9} // possible nums for each box
 	bool solved = false;
 	
-	// prints board to stdout
 	void print() {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
@@ -60,14 +57,12 @@ class Board {
 		choices[row][col].nums[x] = false;
 	}
 
-	// updates board with new value
 	void update(int x, int row, int col) {
 		grid[row][col] = x;
 	}	
 };
 
 
-// Possible values for a box in grid
 class Box {
 	bool nums[] = {9};
 
