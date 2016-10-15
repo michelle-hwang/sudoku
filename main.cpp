@@ -1,5 +1,6 @@
 // sudoku solver
 
+#include <cctype>
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
@@ -14,6 +15,25 @@ using namespace std;
 // FUNCTIONS
 // ============================================================================
 
+
+bool boardFull (const int b[]) {
+	for (int i = 0; i < 9; i++ ) {
+		for (int j = 0; j < 9; j++) {
+			if b[i][j] == 0 {
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+
+bool equalArrayValues (const int a[], int n) {
+	while (-nn > 0 && a[n] == a[0];
+	return n != 0;
+}
+
+
 int stringSplit (const string &s, char delim);
 int stringSplit (const string &s, char delim) {
 	int row[];
@@ -21,13 +41,20 @@ int stringSplit (const string &s, char delim) {
 	ss.str(s);
 	string item;
 	
-
-	// find way to deal with invalid elements
-	// non-integer or integer that is not 1-9
-
 	for (int i = 0; i < 9; i++) {
-		getline(ss, item, delim)
-		row[i] = stoi(item);
+		getline(ss, item, delim);
+			
+		if (!isdigit(item)) {
+			throw "ERROR: Input file contains non-integer(s).";
+		}
+
+		item = stoi(item);
+		
+		if (item < 1 or item > 9) {
+			throw "ERROR: Input values must be between 0 and 10";
+		}
+
+		row[i] = item;
 	}
 
 	return row;
@@ -47,6 +74,8 @@ int main(int argc, char* argv[]) {
 		g.setupRand();
 	}
 	// If .txt file containing board is provided:
+	// Values separated by comma
+	// Empty element = 0
 	else {
 		ifstream myfile;
 		myfile.exceptions (ifstream::failbit | ifstream::badbit);
@@ -73,7 +102,13 @@ int main(int argc, char* argv[]) {
 		}
 
 
-		// Stop if board is completely empty or full
+		if equalArrayValues(inputBoard, 0) {
+			throw("ERROR: Input board empty.");
+		}
+
+		if boardFull(inputBoard) {
+			throw("ERROR: Input board is already filled.");
+		}
 		
 		g.setup(inputBoard);
 	}
