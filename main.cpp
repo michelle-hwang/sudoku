@@ -23,6 +23,7 @@ int stringSplit (const string &s, char delim) {
 	
 
 	// find way to deal with invalid elements
+	// non-integer or integer that is not 1-9
 
 	for (int i = 0; i < 9; i++) {
 		getline(ss, item, delim)
@@ -71,7 +72,6 @@ int main(int argc, char* argv[]) {
 			rowCounter++;
 		}
 
-		// Stop if board contains invalid integer
 
 		// Stop if board is completely empty or full
 		
