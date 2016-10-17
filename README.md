@@ -1,5 +1,5 @@
 # sudoku
-This is a program that solves Sudoku puzzles.
+This is a C++ program that solves Sudoku puzzles.
 
 ### Files
 
@@ -12,8 +12,8 @@ Input puzzles must have 9 rows. Numbers are separated in each row by comma. Abse
 
 ### Test Cases
 
-* easy.txt
-* medium.txt
-* hard.txt
-* empty.txt
-* full.txt
+* **Easy**: An easy-level puzzle.
+* **Medium**: A medium-level puzzle.
+* **Hard**: A hard-level puzzle.
+* **Empty**: An empty puzzle.
+* **Full**: A complete puzzle.
