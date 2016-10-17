@@ -8,3 +8,5 @@ This is a program that solves Sudoku puzzles.
 * strategies.h
 
 ### Test Cases
+
+* test case 1
