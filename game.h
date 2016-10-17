@@ -17,11 +17,11 @@ class Game {
 				// unsolvable if all strategies false
 				// have to do checkLastValue 
 				for (iter = _strategies.begin(), end = _strategies.end(); iter != end; ++iter) {
-					(*iter)->function()
+					(*iter)->function();
 				}
 						
 			}
-			board.update()
+			board.update();
 		}
 
 	}
@@ -50,7 +50,7 @@ class Game {
 
 class Board {
 	int grid[] = {9, 9};
-	Box choices[] = {9, 9} // possible nums for each box
+	Box choices[] = {9, 9}; // possible nums for each box
 	bool solved = false;
 	
 	void print() {
