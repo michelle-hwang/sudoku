@@ -12,10 +12,6 @@ struct newValue {
 	int val = 0;
 }
 
-// Store pointers to strategy functions
-vector<void (*)()> _basics;
-vector<void (*)()> _strategies;
-
 
 // ============================================================================
 // BASIC STRATEGIES

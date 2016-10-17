@@ -8,14 +8,17 @@ using namespace std;
 class Game {
 	Board board;
 	bool endgame = false;
-	
+	vector<void (*)()> _strategies;	// Vector of pointers to strategy funtions in "strategies.h"
+
 	void solve() {
 		while (!board.solved) {
 			bool solution = false;
 			while (!solution) {
 				// unsolvable if all strategies false
 				// have to do checkLastValue 
-				for (int i = 0; i <
+				for (iter = _strategies.begin(), end = _strategies.end(); iter != end; ++iter) {
+					(*iter)->function()
+				}
 						
 			}
 			board.update()
@@ -23,7 +26,7 @@ class Game {
 
 	}
 	
-	// initializes board based on file input
+	// Initializes board based on file input
 	void setup(int input[]) {
 		for (int i = 0, i < 9, i++) {
 			for (int j = 0, j < 9, j++) {
@@ -32,8 +35,14 @@ class Game {
 		}
 	}
 	
-	// initializes board with random templates
+	// Initializes board with random templates
 	void setupRand(int input[]) {
+
+	}
+
+	// Add strategy functions to vector container
+	void addStrategy(void (*function)()){
+		_strategies.push_back(function);
 	}
 };
 
@@ -60,6 +69,7 @@ class Board {
 	void update(int x, int row, int col) {
 		grid[row][col] = x;
 	}	
+
 };
 
 

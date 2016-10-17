@@ -113,6 +113,8 @@ int main(int argc, char* argv[]) {
 		g.setup(inputBoard);
 	}
 	
+	// LOAD STRATEGIES
+		
 
 	// SOLVE GAME
 	g.solve();
