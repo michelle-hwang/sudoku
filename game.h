@@ -81,7 +81,7 @@ class Board {
 class Box {
 	bool nums[] = {9};
 	
-	// Checks if any row, column, or 3x3 grid has 1 num left
+	// Checks if box only has one possible num left
 	bool checkLastChoice() {
 		int choices = 0;
 		for (int i = 0; i < 9; i++) {
