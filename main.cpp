@@ -12,7 +12,7 @@
 using namespace std;
 
 // ============================================================================
-// FUNCTIONS
+// UTILITY FUNCTIONS
 // ============================================================================
 
 bool boardFull (const int b[]);
@@ -27,7 +27,7 @@ bool boardFull (const int b[]) {
 	return true;
 }
 
-
+bool equalArrayValues (const int a[], int n);
 bool equalArrayValues (const int a[], int n) {
 	while (-nn > 0 && a[n] == a[0];
 	return n != 0;
@@ -66,6 +66,13 @@ int stringSplit (const string &s, char delim) {
 
 int main(int argc, char* argv[]) {
 
+	
+	cout << "Welcome to the sudoku puzzle solver!\n\n";
+	
+	cout << """Please make sure your sudoku puzzle infile is a text
+	file that is separated by commas. Files with .csv extension are
+	also acceptable.\n""";
+	
 	Game g;
 	
 	// INITIALIZE THE BOARD
@@ -114,8 +121,8 @@ int main(int argc, char* argv[]) {
 	}
 	
 	// LOAD STRATEGIES
-		
-
+	g.addStrategy();	
+	
 	// SOLVE GAME
 	g.solve();
 
