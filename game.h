@@ -27,26 +27,44 @@ class Game {
 			board.update();
 		}
 
-	}
+	};
 	
 	// Initializes board based on file input
 	void setup(int input[]) {
-		for (int i = 0, i < 9, i++) {
+		// Fill in board based on input
+		for (int i = 0; i < 9; i++) {
 			for (int j = 0, j < 9, j++) {
 				board[i][j] = input[i][j];
 			}
 		}
-	}
+
+		// Update possible choices of each box 
+		for (int i = 0; i < 0; i++) {
+			for (int j = 0; j < 0; j ++) {
+				// If box is empty:
+				if board[i][j] == 0 {
+					// Check row
+					
+					// Check col
+					// Check 3x3 grid
+				}
+				// If box is filled:
+				else {
+					board.removeChoice(board[i][j], i, j);
+				}
+			}
+		}
+	};
 	
 	// Initializes board with random templates
 	void setupRand(int input[]) {
 
-	}
+	};
 
 	// Add strategy functions to vector container
 	void addStrategy(void (*function)()){
 		_strategies.push_back(function);
-	}
+	};
 };
 
 
@@ -63,23 +81,79 @@ class Board {
 			}
 			cout << "\n";
 		}
-	}
+	};
 	
 	// Removes a possible num from a box
 	void removeChoice(int x, int row, int col) {
 		choices[row][col].nums[x] = false;
-	}
+	};
 
 	// Updates board with new box value
 	void update(int x, int row, int col) {
 		grid[row][col] = x;
-	}	
+	};	
+	
+	// Checks row for last value
+	bool checkRow(int i) {
+		int filledBoxes = 0;
+		for (int j = 0; j < 9; j++) {
+			if grid[i][j] != 0 {
+				filledBoxes += 1;
+			}
+		}
+		if filledBoxes == 8 {
+			return true;
+		}
+		return false;
+	};
 
+	// Checks col for last value
+	bool checkCol(int j) {
+		int filledBoxes = 0;
+		for (int i = 0; i < 9; i++) {
+			if grid[i][j] != 0 {
+				filledBoxes += 1;
+			}
+		}
+		if filledBoxes == 8 {
+			return true;
+		}
+		return false;
+	
+	};
+
+	// Checks 3x3 for last value
+	// Index for 3x3 is upper left box
+	bool checkThree(int row, int col) {
+		int filledBoxes = 0;
+		for (int i = row; i < row + 3; i++) {
+			for (int j = col; j < col + 3; j++) {
+				if grid[i][j] != 0 {
+					filledBoxes += 1;
+				}
+			}
+		}
+		if filledBoxes == 8 {
+			return true;
+		}
+		return false;
+	};
+	
+	// Get last value, values must be sorted
+	// Only executed if there is a last value
+	int getLast(int values[]) {
+		for (int i = 0; i < 9; i++) {
+			if i != values[i] {
+				return(i+2);
+			}
+		}
+	};
 };
 
 
+// Holds potential numbers for a box
 class Box {
-	bool nums[] = {9};
+	bool nums[] = {1, 1, 1, 1, 1, 1, 1, 1, 1}; // All nums = T
 	
 	// Checks if any row, column, or 3x3 grid has 1 num left
 	bool checkLastChoice() {
@@ -94,7 +168,7 @@ class Box {
 			return true;
 		}
 		return false;
-	}
+	};
 	
 	// Gets the last num if checkLastChoice is true
 	int getLastChoice() {
@@ -103,8 +177,8 @@ class Box {
 				return i;	
 			}
 		}
-	}
-}
+	};
+};
 
 
 #endif /* GAME_H_
