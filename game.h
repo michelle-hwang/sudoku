@@ -43,10 +43,10 @@ class Game {
 			for (int j = 0; j < 0; j ++) {
 				// If box is empty:
 				if board[i][j] == 0 {
-					// Check row
-					
-					// Check col
-					// Check 3x3 grid
+					while(board.checkLast(i, j) != "none") {
+						x = board.getLast(i, j, board.checkLast(i, j));		
+						board.update(x, i, j);
+					}
 				}
 				// If box is filled:
 				else {
@@ -70,8 +70,8 @@ class Game {
 
 
 class Board {
-	int grid[] = {9, 9};
-	Box choices[] = {9, 9}; // possible nums for each box
+	int grid[9][9];
+	Box choices[9][9]; // possible nums for each box
 	bool solved = false;
 	
 	void print() {
@@ -91,6 +91,7 @@ class Board {
 	// Updates board with new box value
 	void update(int x, int row, int col) {
 		grid[row][col] = x;
+		// Update all boxes on board; remove possible values
 	};	
 	
 	// Checks row for last value
@@ -139,16 +140,30 @@ class Board {
 		return false;
 	};
 	
+	
+	string checkLast(int i, int j) {
+		if checkRow(i) is true {
+			return "row";
+		}
+		else if checkCol(j) is true {
+			return "col";
+		}
+		else if checkThree(i, j) is true {
+			return "three";
+		}
+		return "none";
+	};
+
 	// Get last value, values must be sorted
 	// Only executed if there is a last value
-	int getLast(int values[]) {
-		for (int i = 0; i < 9; i++) {
-			if i != values[i] {
-				return(i+2);
-			}
-		}
+	int getLast(int i, int j, string type) {
+	
+	
+	
+	
 	};
 };
+
 
 
 // Holds potential numbers for a box
