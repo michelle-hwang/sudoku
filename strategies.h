@@ -12,14 +12,16 @@ struct newValue {
 	int val = 0;
 }
 
+static const 
 
 // ============================================================================
 // BASIC STRATEGIES
 // ============================================================================
 
-// If any row, column, or box only needs one last number, return index
-newValue lastCell(int board[]) {
-	
+// If any row, column, or box only needs one last number, return newValue
+newValue lastCell(int board[], int ) {
+		
+
 }
 
 newValue nakedPairs(int board[]) {
