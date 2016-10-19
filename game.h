@@ -8,8 +8,11 @@ using namespace std;
 class Game {
 	Board board;
 	bool endgame = false;
-	vector<void (*)()> _strategies;	// Vector of pointers to strategy funtions in "strategies.h"
 
+	// Vector of pointers to strategy functions in "strategies.h":
+	vector<void (*)()> _strategies;	
+	
+	// Solves puzzle board; fills in rest of empty boxes using strategy functions
 	void solve() {
 		while (!board.solved) {
 			bool solution = false;
@@ -61,11 +64,13 @@ class Board {
 			cout << "\n";
 		}
 	}
-
+	
+	// Removes a possible num from a box
 	void removeChoice(int x, int row, int col) {
 		choices[row][col].nums[x] = false;
 	}
 
+	// Updates board with new box value
 	void update(int x, int row, int col) {
 		grid[row][col] = x;
 	}	
@@ -75,7 +80,8 @@ class Board {
 
 class Box {
 	bool nums[] = {9};
-
+	
+	// Checks if any row, column, or 3x3 grid has 1 num left
 	bool checkLastChoice() {
 		int choices = 0;
 		for (int i = 0; i < 9; i++) {
@@ -89,7 +95,8 @@ class Box {
 		}
 		return false;
 	}
-
+	
+	// Gets the last num if checkLastChoice is true
 	int getLastChoice() {
 		for (int i = 0; i < 9; i++ ) {
 			if (i != true) {
