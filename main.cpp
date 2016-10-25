@@ -71,7 +71,7 @@ int main(int argc, char* argv[]) {
 	
 	cout << """Please make sure your sudoku puzzle infile is a text
 	file that is separated by commas. Files with .csv extension are
-	also acceptable.\n""";
+	also acceptable. Blank values are specified by 0.\n""";
 	
 	Game g;
 	
@@ -81,8 +81,6 @@ int main(int argc, char* argv[]) {
 		g.setupRand();
 	}
 	// If .txt file containing board is provided:
-		// Values separated by comma
-		// Empty element = 0
 	else {
 		ifstream myfile;
 		myfile.exceptions (ifstream::failbit | ifstream::badbit);
