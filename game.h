@@ -56,7 +56,7 @@ public:
 	// Checks for a last value in row, col, and 3x3
 	// Updates board and choices to reflect last value
 	// Returns false if no last value, true otherwise 
-	bool getLast(int i, int j, string type);
+	bool checkLast(int i, int j);
 };
 
 // ----------------------------------------------------------------------------
@@ -64,6 +64,7 @@ public:
 // Holds potential numbers for a box
 class Box {
 	bool nums[];
+	bool full;
 
 public:
 	// Constructor: initializes all to 1 (true)
@@ -153,7 +154,19 @@ void Board::removeChoice(int x, int row, int col) {
 
 void Board::update(int x, int row, int col) {
 	grid[row][col] = x;
-	// Update all boxes on board; remove possible values
+	
+	// Remove value as possible choice in row and col
+	for(int n = 0; n < 9; n++) {
+		removeChoice(x, row, n);
+		removeChoice(x, n, col);
+	}
+	
+	// Remove value as possible choice in 3x3
+	for(int i = 0; i < 3; i++) {
+		for(int j = 0; j < 3; j++) {
+			removeChoice(x, row + i, col + j);
+		}
+	}
 }	
 
 bool Board::checkRow(int i) {
@@ -198,21 +211,21 @@ bool Board::checkThree(int row, int col) {
 }
 
 
-bool Board::getLast(int i, int j) {
+bool Board::checkLast(int i, int j) {
 	Box element; // Holds possible values of row, col, or 3x3
 	int last;
 	
 	if checkRow(i) is true {
 		for(int n = 0; n < 9; n++) {
-			if board[i][n] != 0 {
-				element[board[i][n] - 1] = 1;
+			if grid[i][n] != 0 {
+				element[grid[i][n] - 1] = 1;
 			}
 		}
 	}
 	else if checkCol(j) is true {
 		for(int n = 0; n < 9; n++) {
-			if board[n][j] != 0 {	
-				element[board[n][j]] = 1;
+			if grid[n][j] != 0 {	
+				element[grid[n][j]] = 1;
 			}
 		}
 	}
@@ -220,7 +233,7 @@ bool Board::getLast(int i, int j) {
 		x = 0;
 		for(int n = 0; n < 3; n++) {
 			for(int m = 0; m < 3; m++) {
-				if board[n][j] != 0 {
+				if grid[i + n][j + m] != 0 {
 					element[x] = 1;
 					x += 1;
 				}
@@ -246,6 +259,7 @@ bool Board::getLast(int i, int j) {
 
 Box::Box() {
 	nums[] = {1, 1, 1, 1, 1, 1, 1, 1, 1}; // All nums = T
+	full = false;
 }
 
 bool Box::checkLastChoice() {
