@@ -12,24 +12,20 @@ using namespace std;
 class Game {
 	Board board;
 	bool endgame;
-
-	// Vector of pointers to strategy functions in "strategies.h":
-	vector<void (*)()> _strategies;	
+	vector<void (*)()> _strategies;	 // Pointers to strategy functions
 public:	
-	// Constructor
-	// Initializes board based on file input
+	// Constructor: initializes board based on file input
 	Game(int input[]);
 
-	// Solves puzzle board; fills in rest of empty boxes using strategy functions
+	// Solves puzzle board 
+	// AKA fills in rest of empty boxes using strategy functions
 	void solve();
-	
-	// Initializes board with random templates
-	void setupRand(int input[]);
 
 	// Add strategy functions to vector container
 	void addStrategy(void (*function)());
 };
 
+// ----------------------------------------------------------------------------
 
 class Board {
 	int grid[9][9];
@@ -44,6 +40,7 @@ public:
 	void removeChoice(int x, int row, int col);
 
 	// Updates board with new box value
+	// Removes possible nums in boxes affected by update
 	void update(int x, int row, int col);	
 	
 	// Checks row for last value
@@ -56,43 +53,27 @@ public:
 	// Index for 3x3 is upper left box
 	bool checkThree(int row, int col);
 	
-	string checkLast(int i, int j);
-
-	// Get last value, values must be sorted
-	// Only executed if there is a last value
-	int getLast(int i, int j, string type);
+	// Checks for a last value in row, col, and 3x3
+	// Updates board and choices to reflect last value
+	// Returns false if no last value, true otherwise 
+	bool getLast(int i, int j, string type);
 };
 
-
+// ----------------------------------------------------------------------------
 
 // Holds potential numbers for a box
 class Box {
-	bool nums[] = {1, 1, 1, 1, 1, 1, 1, 1, 1}; // All nums = T
+	bool nums[];
 
 public:
-	// Checks if box only has one possible num left
-	bool checkLastChoice() {
-		int choices = 0;
-		for (int i = 0; i < 9; i++) {
-			if !(choices == false) {
-				choices ++ 1;
-			}
-		}
-
-		if (choices == 8) {
-			return true;
-		}
-		return false;
-	};
+	// Constructor: initializes all to 1 (true)
+	Box::Box();
 	
-	// Gets the last num if checkLastChoice is true
-	int getLastChoice() {
-		for (int i = 0; i < 9; i++ ) {
-			if (i != true) {
-				return i;	
-			}
-		}
-	};
+	// Checks if box only has one possible num left
+	bool checkLastChoice();
+	
+	// Gets the index of last num if checkLastChoice is true
+	int getLastChoice();
 };
 
 
@@ -149,6 +130,7 @@ void Game::addStrategy(void (*function)()){
 	_strategies.push_back(function);
 }
 
+// ----------------------------------------------------------------------------
 
 Board::Board() {
 	solved = false;
@@ -216,25 +198,55 @@ bool Board::checkThree(int row, int col) {
 }
 
 
-string Board::checkLast(int i, int j) {
+bool Board::getLast(int i, int j) {
+	Box element; // Holds possible values of row, col, or 3x3
+	int last;
+	
 	if checkRow(i) is true {
-		return "row";
+		for(int n = 0; n < 9; n++) {
+			if board[i][n] != 0 {
+				element[board[i][n] - 1] = 1;
+			}
+		}
 	}
 	else if checkCol(j) is true {
-		return "col";
+		for(int n = 0; n < 9; n++) {
+			if board[n][j] != 0 {	
+				element[board[n][j]] = 1;
+			}
+		}
 	}
 	else if checkThree(i, j) is true {
-		return "three";
+		x = 0;
+		for(int n = 0; n < 3; n++) {
+			for(int m = 0; m < 3; m++) {
+				if board[n][j] != 0 {
+					element[x] = 1;
+					x += 1;
+				}
+			}
+		}
 	}
-	return "none";
+	else {
+		// No last value found
+		return false;
+	}
+	
+	if element.checkLastChoice(): last = element.getLastChoice();
+	else: cout << "WARNING: Box::getLastChoice() called when Box::checkLastChoice() returned F\n";
+
+	// Update board
+	update(last, i, j);
+	
+	return true;
 }
 
 
-int Board::getLast(int i, int j, string type) {
+// ----------------------------------------------------------------------------
 
-
+Box::Box() {
+	nums[] = {1, 1, 1, 1, 1, 1, 1, 1, 1}; // All nums = T
 }
-
 
 bool Box::checkLastChoice() {
 	int choices = 0;
