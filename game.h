@@ -11,7 +11,13 @@ class Game {
 
 	// Vector of pointers to strategy functions in "strategies.h":
 	vector<void (*)()> _strategies;	
-	
+
+public:	
+	// Constructor
+	Game(Board board) {
+		//
+	};
+
 	// Solves puzzle board; fills in rest of empty boxes using strategy functions
 	void solve() {
 		while (!board.solved) {
