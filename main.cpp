@@ -15,7 +15,6 @@ using namespace std;
 // UTILITY FUNCTIONS
 // ============================================================================
 
-bool boardFull (const int b[]);
 bool boardFull (const int b[]) {
 	for (int i = 0; i < 9; i++ ) {
 		for (int j = 0; j < 9; j++) {
@@ -25,16 +24,14 @@ bool boardFull (const int b[]) {
 		}
 	}
 	return true;
-}
+};
 
-bool equalArrayValues (const int a[], int n);
 bool equalArrayValues (const int a[], int n) {
 	while (-nn > 0 && a[n] == a[0];
 	return n != 0;
-}
+};
 
 
-int stringSplit (const string &s, char delim);
 int stringSplit (const string &s, char delim) {
 	int row[];
 	stringstream ss;
@@ -58,7 +55,8 @@ int stringSplit (const string &s, char delim) {
 	}
 
 	return row;
-
+};
+	       
 // ============================================================================
 // MAIN
 // ============================================================================
@@ -73,57 +71,51 @@ int main(int argc, char* argv[]) {
 	file that is separated by commas. Files with .csv extension are
 	also acceptable. Blank values are specified by 0.\n""";
 	
-	Game g;
-	
+	// OPEN INPUT FILE
+	ifstream myfile;
+	myfile.exceptions (ifstream::failbit | ifstream::badbit);
+
+	try {
+		myfile.open(argv[1]);
+		while (!file.eof()) file.get();
+	}
+	catch (const ifstream::failure&e) {
+		cout << "EXCEPTION: Opening/reading file.";
+	}
+
 	// INITIALIZE THE BOARD
-	// If .txt file containing board is not provided:
-	if (argv[1] == nullptr) {
-		g.setupRand();
+	int inputBoard[] = {9, 9}
+	int rowCounter = 0;
+	while (getline(myfile, s)) {
+		char delim = ',' 
+		int row = stringSplit(s, delim);
+
+		for (int i = 0; i < 9; i++ ) {
+			inputBoard[rowCounter][i] = row[i];
+		}
+
+		rowCounter++;
 	}
-	// If .txt file containing board is provided:
-	else {
-		ifstream myfile;
-		myfile.exceptions (ifstream::failbit | ifstream::badbit);
-
-		try {
-			myfile.open(argv[1]);
-			while (!file.eof()) file.get();
-		}
-		catch (const ifstream::failure&e) {
-			cout << "EXCEPTION: Opening/reading file.";
-		}
-
-		int inputBoard[] = {9, 9}
-		int rowCounter = 0;
-		while (getline(myfile, s)) {
-			char delim = ',' 
-			int row = stringSplit(s, delim);
-			
-			for (int i = 0; i < 9; i++ ) {
-				inputBoard[rowCounter][i] = row[i];
-			}
-			
-			rowCounter++;
-		}
 
 
-		if equalArrayValues(inputBoard, 0) {
-			throw("ERROR: Input board empty.");
-		}
-
-		if boardFull(inputBoard) {
-			throw("ERROR: Input board is already filled.");
-		}
-		
-		g.setup(inputBoard);
+	if equalArrayValues(inputBoard, 0) {
+		throw("ERROR: Input board empty.");
 	}
+
+	if boardFull(inputBoard) {
+		throw("ERROR: Input board is already filled.");
+	}
+	Game g(inputBoard);
+	
 	
 	// LOAD STRATEGIES
 	g.addStrategy();	
 	
+	
 	// SOLVE GAME
 	g.solve();
 
+	
 	// END GAME
 	if g.board.solved {
 		cout << "Puzzle solved!\n";
