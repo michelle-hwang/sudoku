@@ -11,19 +11,17 @@ using namespace std;
 
 class Game {
 	Board board;
-	bool endgame = false;
+	bool endgame;
 
 	// Vector of pointers to strategy functions in "strategies.h":
 	vector<void (*)()> _strategies;	
 public:	
 	// Constructor
-	Game(Board board);
+	// Initializes board based on file input
+	Game(int input[]);
 
 	// Solves puzzle board; fills in rest of empty boxes using strategy functions
 	void solve();
-	
-	// Initializes board based on file input
-	void setup(int input[]);
 	
 	// Initializes board with random templates
 	void setupRand(int input[]);
@@ -36,9 +34,11 @@ public:
 class Board {
 	int grid[9][9];
 	Box choices[9][9]; // possible nums for each box
-	bool solved = false;
+	bool solved;
 public:	
-	void print()};
+	Board();
+	
+	void print();
 	
 	// Removes a possible num from a box
 	void removeChoice(int x, int row, int col);
@@ -100,26 +100,9 @@ public:
 // CLASS FUNCTION DEFINITIONS
 // ============================================================================
 
-Game::Game(Board board) {
-}
-
-
-void Game::solve() {
-	while (!board.solved) {
-		bool solution = false;
-		while (!solution) {
-			// unsolvable if all strategies false
-			// have to do checkLastValue 
-			for (iter = _strategies.begin(), end = _strategies.end(); iter != end; ++iter) {
-				(*iter)->function();
-			}
-		}
-		board.update();
-	}
-
-}
-
-void Game::setup(int input[]) {
+Game::Game(int input[]) {
+	endgame = false;
+	
 	// Fill in board based on input
 	for (int i = 0; i < 9; i++) {
 		for (int j = 0, j < 9, j++) {
@@ -146,10 +129,30 @@ void Game::setup(int input[]) {
 }
 
 
+void Game::solve() {
+	while (!board.solved) {
+		bool solution = false;
+		while (!solution) {
+			// unsolvable if all strategies false
+			// have to do checkLastValue 
+			for (iter = _strategies.begin(), end = _strategies.end(); iter != end; ++iter) {
+				(*iter)->function();
+			}
+		}
+		board.update();
+	}
+
+}
+
+
 void Game::addStrategy(void (*function)()){
 	_strategies.push_back(function);
 }
 
+
+Board::Board() {
+	solved = false;
+}
 
 void Board::print() {
 	for (int i = 0; i < 9; i++) {
