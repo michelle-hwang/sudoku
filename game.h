@@ -171,11 +171,10 @@ void Board::update(int x, int row, int col) {
 bool Board::checkRow(int i) {
 	int filledBoxes = 0;
 	for (int j = 0; j < 9; j++) {
-		if grid[i][j] != 0 {
+		if (grid[i][j] != 0) 
 			filledBoxes += 1;
-		}
 	}
-	if filledBoxes == 8 
+	if (filledBoxes == 8)
 		return true;
 	return false;
 }
@@ -183,11 +182,10 @@ bool Board::checkRow(int i) {
 bool Board::checkCol(int j) {
 	int filledBoxes = 0;
 	for (int i = 0; i < 9; i++) {
-		if grid[i][j] != 0 {
+		if (grid[i][j] != 0) 
 			filledBoxes += 1;
-		}
 	}
-	if filledBoxes == 8 
+	if (filledBoxes == 8)
 		return true;
 	return false;
 }
@@ -196,12 +194,11 @@ bool Board::checkThree(int row, int col) {
 	int filledBoxes = 0;
 	for (int i = row; i < row + 3; i++) {
 		for (int j = col; j < col + 3; j++) {
-			if grid[i][j] != 0 {
+			if (grid[i][j] != 0)
 				filledBoxes += 1;
-			}
 		}
 	}
-	if filledBoxes == 8 
+	if (filledBoxes == 8)
 		return true;
 	return false;
 }
@@ -211,35 +208,32 @@ bool Board::checkLast(int i, int j) {
 	Box element; // Holds possible values of row, col, or 3x3
 	int last;
 	
-	if checkRow(i) is true {
+	if (checkRow(i) == true) {
 		for(int n = 0; n < 9; n++) {
-			if grid[i][n] != 0 {
+			if (grid[i][n] != 0)
 				element[grid[i][n] - 1] = 1;
-			}
 		}
 	}
-	else if checkCol(j) is true {
+	else if (checkCol(j) == true) {
 		for(int n = 0; n < 9; n++) {
-			if grid[n][j] != 0 {	
+			if (grid[n][j] != 0) 
 				element[grid[n][j]] = 1;
-			}
 		}
 	}
-	else if checkThree(i, j) is true {
+	else if (checkThree(i, j) == true) {
 		x = 0;
 		for(int n = 0; n < 3; n++) {
 			for(int m = 0; m < 3; m++) {
-				if grid[i + n][j + m] != 0 {
+				if (grid[i + n][j + m] != 0)
 					element[x] = 1;
 					x += 1;
-				}
 			}
 		}
 	}
 	else 
 		return false;
 	
-	if element.checkLastChoice(): last = element.getLastChoice();
+	if (element.checkLastChoice()): last = element.getLastChoice();
 	else: cout << "WARNING: Box::getLastChoice() called when Box::checkLastChoice() returned F\n";
 
 	// Update board
@@ -259,10 +253,9 @@ Box::Box() {
 bool Box::checkLastChoice() {
 	int choices = 0;
 	for (int i = 0; i < 9; i++) {
-		if !(choices == false) 
-			choices ++ 1;
+		if (nums[i] == false) 
+			choices += 1;
 	}
-
 	if (choices == 8) 
 		return true;	
 	return false;
