@@ -96,21 +96,21 @@ Game::Game(int input[]) {
 	for (int i = 0; i < 0; i++) {
 		for (int j = 0; j < 0; j ++) {
 			// If box is empty:
-			if board[i][j] == 0 {
+			if (board[i][j] == 0) {
 				while(board.checkLast(i, j) != "none") {
 					x = board.getLast(i, j, board.checkLast(i, j));		
 					board.update(x, i, j);
 				}
 			}
 			// If box is filled:
-			else 
-				board.update(board[i][j], int i, int j) 
+			else: board.update(board[i][j], int i, int j) 
 		}
 	}
 }
 
 
 void Game::solve() {
+	// INCOMPLETE
 	while (!board.solved) {
 		bool solution = false;
 		while (!solution) {
@@ -126,7 +126,7 @@ void Game::solve() {
 }
 
 
-void Game::addStrategy(void (*function)()){
+void Game::addStrategy(void (*function)()) {
 	_strategies.push_back(function);
 }
 
@@ -171,22 +171,18 @@ void Board::update(int x, int row, int col) {
 bool Board::checkRow(int i) {
 	int filledBoxes = 0;
 	for (int j = 0; j < 9; j++) {
-		if (grid[i][j] != 0) 
-			filledBoxes += 1;
+		if (grid[i][j] != 0): filledBoxes += 1;
 	}
-	if (filledBoxes == 8)
-		return true;
+	if (filledBoxes == 8): return true;
 	return false;
 }
 
 bool Board::checkCol(int j) {
 	int filledBoxes = 0;
 	for (int i = 0; i < 9; i++) {
-		if (grid[i][j] != 0) 
-			filledBoxes += 1;
+		if (grid[i][j] != 0): filledBoxes += 1;
 	}
-	if (filledBoxes == 8)
-		return true;
+	if (filledBoxes == 8): return true;
 	return false;
 }
 
@@ -194,12 +190,10 @@ bool Board::checkThree(int row, int col) {
 	int filledBoxes = 0;
 	for (int i = row; i < row + 3; i++) {
 		for (int j = col; j < col + 3; j++) {
-			if (grid[i][j] != 0)
-				filledBoxes += 1;
+			if (grid[i][j] != 0): filledBoxes += 1;
 		}
 	}
-	if (filledBoxes == 8)
-		return true;
+	if (filledBoxes == 8): return true;
 	return false;
 }
 
@@ -210,28 +204,26 @@ bool Board::checkLast(int i, int j) {
 	
 	if (checkRow(i) == true) {
 		for(int n = 0; n < 9; n++) {
-			if (grid[i][n] != 0)
-				element[grid[i][n] - 1] = 1;
+			if (grid[i][n] != 0): element[grid[i][n] - 1] = 1;
 		}
 	}
 	else if (checkCol(j) == true) {
 		for(int n = 0; n < 9; n++) {
-			if (grid[n][j] != 0) 
-				element[grid[n][j]] = 1;
+			if (grid[n][j] != 0): element[grid[n][j]] = 1;
 		}
 	}
 	else if (checkThree(i, j) == true) {
 		x = 0;
 		for(int n = 0; n < 3; n++) {
 			for(int m = 0; m < 3; m++) {
-				if (grid[i + n][j + m] != 0)
+				if (grid[i + n][j + m] != 0) {
 					element[x] = 1;
 					x += 1;
+				}
 			}
 		}
 	}
-	else 
-		return false;
+	else: return false;
 	
 	if (element.checkLastChoice()): last = element.getLastChoice();
 	else: cout << "WARNING: Box::getLastChoice() called when Box::checkLastChoice() returned F\n";
@@ -253,19 +245,16 @@ Box::Box() {
 bool Box::checkLastChoice() {
 	int choices = 0;
 	for (int i = 0; i < 9; i++) {
-		if (nums[i] == false) 
-			choices += 1;
+		if (nums[i] == false): choices += 1;
 	}
-	if (choices == 8) 
-		return true;	
+	if (choices == 8): return true;	
 	return false;
 }
 
 
 int Box::getLastChoice() {
 	for (int i = 0; i < 9; i++ ) {
-		if (i != true) 
-			return i;	
+		if (i != true): return i;	
 	}
 }
 
