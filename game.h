@@ -103,9 +103,8 @@ Game::Game(int input[]) {
 				}
 			}
 			// If box is filled:
-			else {
-				board.removeChoice(board[i][j], i, j);
-			}
+			else 
+				board.update(board[i][j], int i, int j) 
 		}
 	}
 }
@@ -176,9 +175,8 @@ bool Board::checkRow(int i) {
 			filledBoxes += 1;
 		}
 	}
-	if filledBoxes == 8 {
+	if filledBoxes == 8 
 		return true;
-	}
 	return false;
 }
 
@@ -189,9 +187,8 @@ bool Board::checkCol(int j) {
 			filledBoxes += 1;
 		}
 	}
-	if filledBoxes == 8 {
+	if filledBoxes == 8 
 		return true;
-	}
 	return false;
 }
 
@@ -204,9 +201,8 @@ bool Board::checkThree(int row, int col) {
 			}
 		}
 	}
-	if filledBoxes == 8 {
+	if filledBoxes == 8 
 		return true;
-	}
 	return false;
 }
 
@@ -240,10 +236,8 @@ bool Board::checkLast(int i, int j) {
 			}
 		}
 	}
-	else {
-		// No last value found
+	else 
 		return false;
-	}
 	
 	if element.checkLastChoice(): last = element.getLastChoice();
 	else: cout << "WARNING: Box::getLastChoice() called when Box::checkLastChoice() returned F\n";
@@ -265,23 +259,20 @@ Box::Box() {
 bool Box::checkLastChoice() {
 	int choices = 0;
 	for (int i = 0; i < 9; i++) {
-		if !(choices == false) {
+		if !(choices == false) 
 			choices ++ 1;
-		}
 	}
 
-	if (choices == 8) {
-		return true;
-	}
+	if (choices == 8) 
+		return true;	
 	return false;
 }
 
 
 int Box::getLastChoice() {
 	for (int i = 0; i < 9; i++ ) {
-		if (i != true) {
+		if (i != true) 
 			return i;	
-		}
 	}
 }
 
